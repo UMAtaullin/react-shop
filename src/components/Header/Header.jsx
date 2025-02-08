@@ -3,7 +3,7 @@ import React from 'react'
 export const Header = () => {
   return (
     <nav>
-      <div class='nav-wrapper'>
+      <div class='nav-wrapper ml-3'>
         <a href='#!' class='brand-logo'>
           <i 
             class='
