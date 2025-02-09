@@ -2,37 +2,13 @@ import React from 'react'
 
 export const Header = () => {
   return (
-    <nav>
-      <div class='nav-wrapper ml-3'>
-        <a href='#!' class='brand-logo'>
-          <i 
-            class='
-              material-icons'>
-                account_balance
-          </i>Logo
-        </a>
-        <ul class='right hide-on-med-and-down'>
-          <li>
-            <a href='sass.html'>
-              <i class='material-icons'>search</i>
-            </a>
-          </li>
-          <li>
-            <a href='badges.html'>
-              <i class='material-icons'>view_module</i>
-            </a>
-          </li>
-          <li>
-            <a href='collapsible.html'>
-              <i class='material-icons'>refresh</i>
-            </a>
-          </li>
-          <li>
-            <a href='mobile.html'>
-              <i class='material-icons'>more_vert</i>
-            </a>
-          </li>
-        </ul>
+    <nav className="navbar bg-body-tertiary">
+      <div className="container-fluid">
+        <a className="navbar-brand">Navbar</a>
+        <form className="d-flex" role="search">
+          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+          <button className="btn btn-outline-success" type="submit">Search</button>
+        </form>
       </div>
     </nav>
   )
