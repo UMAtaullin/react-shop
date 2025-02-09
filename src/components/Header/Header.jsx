@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Header = () => {
   return (
-    <nav className="navbar bg-body-tertiary">
+    <nav className="navbar bg-blue-100">
       <div className="container-fluid">
         <a className="navbar-brand">Navbar</a>
         <form className="d-flex" role="search">
