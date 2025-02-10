@@ -12,3 +12,5 @@ npm install -D tailwindcss postcss autoprefixer
 
 ## bootstrap
 npm install bootstrap
+
+npm i axios

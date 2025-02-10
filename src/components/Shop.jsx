@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { API_KEY, API_URL } from '../config'
 import { GoodsList } from './GoodsList'
+import { fetchGoods } from '../api/goodsApi'
 
 export const Shop = () => {
-  const [goods, setGoods] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorText, setErrorText] = useState(null)
+  // Состояния компонента
+  const [goods, setGoods] = useState([]) // Для хранения списка товаров
+  const [isLoading, setIsLoading] = useState(true) // Для отображения загрузки
+  const [errorText, setErrorText] = useState(null) // Для отображения ошибки
 
-  const fetchGoods = () => {
-    fetch(API_URL, {
-      headers: {
-        Authorization: API_KEY,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error('Network response was not ok')
-        return response.json()
-      })
-      .then((data) => {
-        if (data.shop) setGoods(data.shop)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        setErrorText('Ошибка загрузки данных')
-        setIsLoading(false) // Обязательно установите isLoading в false
-        console.error('Fetch error:', error)
-      })
-  }
-
+  // Эффект для выполнения запроса при монтировании компонента
   useEffect(() => {
-    fetchGoods()
+    const getGoods = async () => {
+      try {
+        // Вызываем функцию fetchGoods и ждем ответа
+        const data = await fetchGoods()
+        setGoods(data) // Обновляем состояние с товарами
+      } catch (error) {
+        // Если произошла ошибка, обновляем состояние с текстом ошибки
+        setErrorText('Ошибка загрузки данных')
+        console.error('Fetch error:', error)
+      } finally {
+        // В любом случае убираем состояние загрузки
+        setIsLoading(false)
+      }
+    }
+
+    getGoods() // Вызываем функцию
   }, [])
 
   if (isLoading && !errorText) return <p>Loading...</p>
