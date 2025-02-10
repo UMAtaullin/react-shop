@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GoodsList } from './GoodsList'
 import { fetchGoods } from '../api/goodsApi'
+import { Cart } from './Cart'
 
 export const Shop = () => {
   // Состояния компонента
