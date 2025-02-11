@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GoodsList } from './GoodsList'
 import { fetchGoods } from '../api/goodsApi'
+import { Header } from './Header'
 
 export const Shop = () => {
   // Состояния компонента
@@ -31,6 +32,10 @@ export const Shop = () => {
     }
   }
 
+  // Функция для расчета общего количества товаров в корзине
+  const calculateTotalQuantity = () => {
+    return order.reduce((total, item) => total + item.quantity, 0)
+  }
 
   // Эффект для выполнения запроса при монтировании компонента
   useEffect(() => {
@@ -55,8 +60,11 @@ export const Shop = () => {
   if (isLoading && !errorText) return <p>Loading...</p>
 
   return (
-    <main className='container contain-content'>
-      <GoodsList goods={goods} addToBasket={addToBasket} />
-    </main>
+    <div className='shop'>
+      <Header quantity={calculateTotalQuantity()} order={order} />
+      <main className='container contain-content'>
+        <GoodsList goods={goods} addToBasket={addToBasket} />
+      </main>
+    </div>
   )
 }
