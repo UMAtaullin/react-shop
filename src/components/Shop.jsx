@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import { GoodsList } from './GoodsList'
 import { fetchGoods } from '../api/goodsApi'
-import { Cart } from './Cart'
 
 export const Shop = () => {
   // Состояния компонента
   const [goods, setGoods] = useState([]) // Для хранения списка товаров
   const [isLoading, setIsLoading] = useState(true) // Для отображения загрузки
   const [errorText, setErrorText] = useState(null) // Для отображения ошибки
+  const [order, setOrder] = useState([])
+
+  /**
+   * Добавляет товар в корзину.
+   * Если товар уже есть в корзине — увеличивает его количество.
+   */
+  const addToBasket = (item) => {
+    // Проверяем, есть ли товар в корзине
+    const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id)
+
+    if (itemIndex < 0) {
+      // Если товара нет в корзине, добавляем его с количеством 1
+      setOrder([...order, { ...item, quantity: 1 }])
+    } else {
+      // Если товар уже есть в корзине, увеличиваем его количество
+      const newOrder = order.map((orderItem, index) =>
+        index === itemIndex
+          ? { ...orderItem, quantity: orderItem.quantity + 1 }
+          : orderItem
+      )
+      setOrder(newOrder)
+    }
+  }
+
 
   // Эффект для выполнения запроса при монтировании компонента
   useEffect(() => {
@@ -33,7 +56,7 @@ export const Shop = () => {
 
   return (
     <main className='container contain-content'>
-      <GoodsList goods={goods} />
+      <GoodsList goods={goods} addToBasket={addToBasket} />
     </main>
   )
 }
