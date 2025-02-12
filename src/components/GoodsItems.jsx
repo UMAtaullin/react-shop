@@ -7,6 +7,7 @@ export const GoodsItems = ({
   addToBasket,
   item,
 }) => {
+  debugger
   return (
     <div className='card' style={{ width: '18rem' }}>
       <img src={image} className='card-img-top' alt='...' />

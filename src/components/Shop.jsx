@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GoodsList } from './GoodsList'
 import { fetchGoods } from '../api/goodsApi'
 import { Header } from './Header'
+import { BasketList } from './BasketList'
 
 export const Shop = () => {
   // Состояния компонента
@@ -9,6 +10,7 @@ export const Shop = () => {
   const [isLoading, setIsLoading] = useState(true) // Для отображения загрузки
   const [errorText, setErrorText] = useState(null) // Для отображения ошибки
   const [order, setOrder] = useState([])
+  const [isBasketShow, setBasketShow] = useState(false)
 
   /**
    * Добавляет товар в корзину.
@@ -37,6 +39,9 @@ export const Shop = () => {
     return order.reduce((total, item) => total + item.quantity, 0)
   }
 
+  const handleBasketToShow = () => {
+    setBasketShow(!isBasketShow)
+  }
   // Эффект для выполнения запроса при монтировании компонента
   useEffect(() => {
     const getGoods = async () => {
@@ -61,9 +66,23 @@ export const Shop = () => {
 
   return (
     <div className='shop'>
-      <Header quantity={calculateTotalQuantity()} order={order} />
+      <Header
+        quantity={calculateTotalQuantity()}
+        order={order}
+        handleBasketToShow={handleBasketToShow}
+      />
       <main className='container contain-content'>
         <GoodsList goods={goods} addToBasket={addToBasket} />
+        {isBasketShow && (
+          <div className='fixed top-0 left-0 w-full h-screen bg-black bg-opacity-75 z-50'>
+            <BasketList 
+              key={order.offerId}
+              order={order} 
+              handleBasketToShow={handleBasketToShow} 
+              setBasketShow={setBasketShow}
+              />
+          </div>
+        )}
       </main>
     </div>
   )

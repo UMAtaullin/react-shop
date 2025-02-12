@@ -2,6 +2,7 @@ import React from 'react'
 import { GoodsItems } from './GoodsItems'
 
 export const GoodsList = ({ goods, addToBasket }) => {
+  debugger
   if (!goods || goods.length === 0) return <div>Список товаров пуст</div>
 
   return (
